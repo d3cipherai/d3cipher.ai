@@ -15,15 +15,19 @@ concurrency:
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@b5eaada7e6b0987e5c1f6c09e16fbe1a7a7b6f60 # v4
+        uses: actions/checkout@v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@e5a6e8d5e5e3bbe253f1912c66b3a5f4f6e3a1d9 # v3
+        uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@e5b1c4ca737e0effb7b5ef8b6a9eaff6c6b1c4e7 # v4
+        id: deployment
+        uses: actions/deploy-pages@v4
